@@ -251,4 +251,6 @@ set_site_information(
     planning = ["CS1 Final Project 0_ Pick a Problem.docx", "CS1 Final Project 1_ Design.docx"],
     links = ["https://github.com/SpartanKing424/cisc108_final_project"]
 )
+hide_debug_information()
+set_website_framed(False)
 start_server(State("Welcome to Sips of Ti-Do" + "\n" + "Please log in or sign up.", '', ''))
