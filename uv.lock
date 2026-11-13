@@ -49,12 +49,14 @@ source = { editable = "." }
 dependencies = [
     { name = "bakery" },
     { name = "drafter" },
+    { name = "pillow" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "bakery", specifier = ">=1.0.0" },
     { name = "drafter", specifier = ">=2.2.0" },
+    { name = "pillow", specifier = ">=13.0.0" },
 ]
 
 [[package]]
