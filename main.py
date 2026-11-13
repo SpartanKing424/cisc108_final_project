@@ -244,4 +244,11 @@ Functions needed
 #stylistic things
 set_website_title("Sips of Ti-Do")
 set_website_style("latex")
+set_site_information(
+    author = "Gabriel Young",
+    description = "A daily program for writting small 'sips' of music!",
+    sources = "Brought to you via Drafter",
+    planning = ["CS1 Final Project 0_ Pick a Problem.docx", "CS1 Final Project 1_ Design.docx"],
+    links = ["https://github.com/SpartanKing424/cisc108_final_project"]
+)
 start_server(State("Welcome to Sips of Ti-Do" + "\n" + "Please log in or sign up.", '', ''))
