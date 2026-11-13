@@ -3,7 +3,7 @@ from bakery import assert_equal
 from dataclasses import dataclass
 from drafter import *
 from user_info import User, user_database
-
+from comp_challenges import Challenge, get_daily_challenges, current_intrumental_challenge, current_emotional_challenge, current_rhythmic_challenge
 
 #go take a look at choosealicense.com
 '''
@@ -30,6 +30,11 @@ class State:
     message: str
     username: str
     password: str
+
+@dataclass
+class MusicComposition:
+    measures: list[Measure]
+    current_measure: int
 
 @route
 def index(state: State) -> Page:
@@ -75,20 +80,41 @@ def main_menu(state: State) -> Page:
          "\n",
          "What challenge do you want to sip today?",
          "\n",
-         Button("Emotional Challenge", "start_challenge", [Argument("start_challenge", "emotional")]),
+         Button("Emotional Challenge", "composition_settings", [Argument("challenge", "emotional")]),
          "\n",
-         Button("Instrumental Challenge", "start_challenge", [Argument("start_challenge", "instrumental")]),
+         Button("Instrumental Challenge", "composition_settings", [Argument("challenge", "instrumental")]),
          "\n",
-         Button("Rhythmic Challenge", "start_challenge", [Argument("start_challenge", "rhythmic")])])
-start_server(State("Welcome to Sips of Ti-Do." + "\n"+ "Please log in or sign up.", '', ''))
+         Button("Rhythmic Challenge", "composition_settings", [Argument("challenge", "rhythmic")])])
 
+
+@route 
+def composition_settings(state: State, challenge: str) -> Page:
+    get_daily_challenges()
+    if challenge == "instrumental":
+        current_challenge = current_intrumental_challenge
+    elif challenge == "emotional":
+        current_challenge = current_emotional_challenge
+    elif challenge == "rhythmic":
+        current_challenge = current_rhythmic_challenge
+    return Page(state, ["Welcome to the " + str(challenge) + " challenge!",
+                "\n",
+                "Your Challenge: Placeholder",
+                "\n",
+                "How many measures would you like to sip today?",
+                SelectBox("num_measures", [1, 2, 3, 4, 5, 6, 7, 8], 2),
+                "\n",
+                Button("Let's Sip!", "composition", Argument("challenge", challenge))]
+                )
+                    
 @route
-def start_challenge(state: State, challenge: str) -> Page:
+def composition(state: State, challenge: str, num_measures: int) -> Page:
+    return Page(state,
+                [Picture.from_file("Measure.png").scale(0.5)])
     pass
-
 '''
 Functions needed
 1. Add_note - when a user adds a note to the staff
 2. Play_measure
 3. Gen_measures - sets up measures based on user specifications
 '''
+start_server(State("Welcome to Sips of Ti-Do" + "\n" + "Please log in or sign up.", '', ''))
